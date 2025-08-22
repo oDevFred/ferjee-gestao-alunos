@@ -1,0 +1,22 @@
+// Define o provedor e a URL do banco
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url = env("DATABASE_URL")
+}
+
+// Exemplo de modelo de aluno
+model Aluno {
+  id          Int       @id @default(autoincrement())
+  nome        String
+  cpf         String    @unique
+  email       String    @unique
+  telefone    String?
+  nascimento  DateTime
+  // ...adicionar outros campos depois
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+}
