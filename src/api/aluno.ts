@@ -38,3 +38,41 @@ export async function criarAluno(req: Request, res: Response) {
         res.status(400).json({ erro: error.message });
     }
 }
+
+export async function listarAlunos(req: Request, res: Response) {
+    try {
+        const alunos = await prisma.aluno.findMany({
+            include: { unidade: true }
+        });
+        res.json(alunos);
+    } catch (error: any) {
+        res.status(500).json({ erro: error.message });
+    }
+}
+
+export async function atualizarAluno(req: Request, res: Response) {
+    try{
+        const { id } = req.params;
+        const dados = req.body;
+        const alunoAtualizado = await prisma.aluno.update({
+            where: { id: Number(id) },
+            data: dados,
+        });
+        res.json(alunoAtualizado);
+    } catch (error: any) {
+        res.status(400).json({ erro: error.message });
+    }
+}
+
+// Remove um aluno pelo ID
+export async function deletarAluno(req: Request, res: Response) {
+    try {
+        const { id } = req.params;
+        await prisma.aluno.delete({
+        where: { id: Number(id) },
+        });
+        res.status(204).send();
+    } catch (error: any) {
+        res.status(400).json({ erro: error.message });
+    }
+}
