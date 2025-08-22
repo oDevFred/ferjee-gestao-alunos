@@ -1,13 +1,10 @@
 import express from "express";
+import alunoRoutes from './routes/aluno'
 
 const app = express();
 
 // Middleware para aceitar JSON
 app.use(express.json());
-
-// Rota de teste
-app.get('/', (req, res) => {
-    res.send('API FERJEE rodando! 🚀')
-});
+app.use(alunoRoutes);
 
 export default app;
