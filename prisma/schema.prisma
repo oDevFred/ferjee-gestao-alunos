@@ -8,15 +8,46 @@ datasource db {
   url = env("DATABASE_URL")
 }
 
-// Exemplo de modelo de aluno
+model Unidade {
+  id              Int           @id @default(autoincrement())
+  nome            String
+  endereco        String
+  responsavel     String
+  cursos          Curso[]
+  alunos          Aluno[]
+}
+
+model Curso {
+  id              Int           @id @default(autoincrement())
+  nome            String
+  descricao       String?
+  duracao         Int
+  unidadeId       Int
+  unidade         Unidade       @relation(fields: [unidadeId], references: [id])
+  alunos          AlunoCurso[]
+}
+
 model Aluno {
-  id          Int       @id @default(autoincrement())
-  nome        String
-  cpf         String    @unique
-  email       String    @unique
-  telefone    String?
-  nascimento  DateTime
+  id              Int           @id @default(autoincrement())
+  nome            String
+  cpf             String        @unique
+  email           String        @unique
+  telefone        String?
+  nascimento      DateTime
+  endereco        String?
+  unidadeId       Int
+  unidade         Unidade       @relation(fields: [unidadeId], references: [id])
+  cursos          AlunoCurso[]
   // ...adicionar outros campos depois
-  createdAt   DateTime  @default(now())
-  updatedAt   DateTime  @updatedAt
+  createdAt       DateTime      @default(now())
+  updatedAt       DateTime      @updatedAt
+}
+
+model AlunoCurso {
+  id              Int           @id @default(autoincrement())
+  alunoId         Int
+  cursoId         Int
+  aluno           Aluno         @relation(fields: [alunoId], references: [id])
+  curso           Curso         @relation(fields: [cursoId], references: [id])
+  matriculadoEm   DateTime      @default(now())
 }
