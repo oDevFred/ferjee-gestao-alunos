@@ -7,6 +7,7 @@
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@3.4.1/dist/tailwind.min.css" rel="stylesheet">
 </head>
 <body class="bg-gray-100 p-8">
+    <!-- Tabela de Alunos -->
     <div class="max-w-3xl mx-auto bg-white p-6 rounded shadow">
         <h1 class="text-2xl font-bold mb-4">Alunos Cadastrados</h1>
         <table class="w-full table-auto border">
@@ -22,6 +23,29 @@
         <tbody id="tbodyAlunos"></tbody>
         </table>
     </div>
+
+    <!-- Modal de edição -->
+    <div id="modalEditar" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden z-50">
+    <div class="bg-white p-6 rounded shadow max-w-md w-full relative">
+        <button id="fecharModal" class="absolute top-2 right-2 text-gray-500">&times;</button>
+        <h2 class="text-xl font-bold mb-4">Editar Aluno</h2>
+        <form id="formEditarAluno" class="space-y-4">
+        <input type="hidden" id="editId" />
+        <input class="w-full border p-2 rounded" type="text" id="editNome" placeholder="Nome" required />
+        <input class="w-full border p-2 rounded" type="text" id="editCpf" placeholder="CPF" required />
+        <input class="w-full border p-2 rounded" type="email" id="editEmail" placeholder="E-mail" required />
+        <input class="w-full border p-2 rounded" type="text" id="editTelefone" placeholder="Telefone" />
+        <input class="w-full border p-2 rounded" type="date" id="editNascimento" placeholder="Data de Nascimento" required />
+        <input class="w-full border p-2 rounded" type="text" id="editEndereco" placeholder="Endereço" />
+        <select class="w-full border p-2 rounded" id="editUnidadeId" required>
+            <option value="">Selecione a Unidade</option>
+        </select>
+        <button class="w-full bg-blue-600 text-white p-2 rounded" type="submit">Salvar</button>
+        </form>
+        <div id="editMensagem" class="mt-4"></div>
+    </div>
+    </div>
+
     <script src="js/lista-alunos.js"></script>
 </body>
 </html>

@@ -54,6 +54,15 @@ export async function atualizarAluno(req: Request, res: Response) {
     try{
         const { id } = req.params;
         const dados = req.body;
+
+        // Evita alteração de campos sensíveis
+        delete dados.id;
+        delete dados.matricula;
+
+        if (dados.nascimento) {
+            dados.nascimento = new Date(dados.nascimento)
+        }
+
         const alunoAtualizado = await prisma.aluno.update({
             where: { id: Number(id) },
             data: dados,
@@ -72,6 +81,20 @@ export async function deletarAluno(req: Request, res: Response) {
         where: { id: Number(id) },
         });
         res.status(204).send();
+    } catch (error: any) {
+        res.status(400).json({ erro: error.message });
+    }
+}
+
+// Buscar aluno
+export async function buscarAlunoPorId(req: Request, res: Response) {
+    try {
+        const { id } = req.params;
+        const aluno = await prisma.aluno.findUnique({
+            where: { id: Number(id) }
+        });
+        if (!aluno) return res.status(404).json({ erro: 'Aluno não encontrado' });
+        res.json(aluno);
     } catch (error: any) {
         res.status(400).json({ erro: error.message });
     }
