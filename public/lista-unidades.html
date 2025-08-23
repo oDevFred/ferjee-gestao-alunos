@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8" />
+    <title>Lista de Unidades</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+</head>
+<body class="bg-gray-100 p-8">
+    <div class="max-w-3xl mx-auto bg-white p-6 rounded shadow">
+        <h1 class="text-2xl font-bold mb-4">Unidades Cadastradas</h1>
+        <table class="w-full table-auto border">
+        <thead>
+            <tr class="bg-gray-200">
+            <th class="p-2">Nome</th>
+            <th class="p-2">Endereço</th>
+            <th class="p-2">Responsável</th>
+            <th class="p-2">Ações</th>
+            </tr>
+        </thead>
+        <tbody id="tbodyUnidades"></tbody>
+        </table>
+    </div>
+
+    <!-- Modal de edição de unidade -->
+    <div id="modalEditarUnidade" class="fixed inset-0 backdrop-blur-sm bg-black/10 flex items-center justify-center hidden z-50">
+    <div class="bg-white p-6 rounded shadow max-w-md w-full relative">
+        <button id="fecharModalUnidade" class="absolute top-2 right-2 text-gray-500">&times;</button>
+        <h2 class="text-xl font-bold mb-4">Editar Unidade</h2>
+        <form id="formEditarUnidade" class="space-y-4">
+        <input type="hidden" id="editUnidadeId" />
+        <input class="w-full border p-2 rounded" type="text" id="editUnidadeNome" placeholder="Nome" required />
+        <input class="w-full border p-2 rounded" type="text" id="editUnidadeEndereco" placeholder="Endereço" required />
+        <input class="w-full border p-2 rounded" type="text" id="editUnidadeResponsavel" placeholder="Responsável" required />
+        <button class="w-full bg-blue-600 text-white p-2 rounded" type="submit">Salvar</button>
+        </form>
+        <div id="editUnidadeMensagem" class="mt-4"></div>
+    </div>
+    </div>
+
+    <script src="js/lista-unidades.js"></script>
+</body>
+</html>
